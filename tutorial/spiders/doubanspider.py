@@ -1,0 +1,49 @@
+import scrapy
+from scrapy import  signals
+from scrapy.xlib.pydispatch import dispatcher
+from ..items import DoubanItem
+
+from ..tools.common import get_md5
+
+
+from selenium import webdriver
+from datetime import datetime
+from lxml import etree
+
+
+
+class DoubanSpider(scrapy.Spider):
+	name = 'douban'
+	allowed_domains = ['douban.com']
+	start_urls = [
+		'https://www.douban.com/explore/'
+	]
+
+	def __init__(self):
+		self.browser = webdriver.Chrome(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
+		dispatcher.connect(self.spider_closed,signals.spider_closed)
+
+
+	def spider_closed(self,spider):
+		print 'browser closed'
+		self.browser.quit()
+
+	def parse(self,response):
+
+		message = response.xpath('//*[@id="gallery_main_frame"]/div[@class="item"]').extract()
+		for m in message:
+			l = DoubanItem()
+			selector = etree.HTML(m)
+			l['title'] = selector.xpath('//div[@class="title"]/a/text()')[0].strip()
+			l['content'] = selector.xpath('//p/a/text()')[0].strip() if selector.xpath('//p/a/text()') else \
+				','.join(selector.xpath('//span/@style')).replace('background-image:url(','').replace(')','').strip()
+			l['message_url'] = selector.xpath('//div[@class="title"]/a/@href')[0]
+			l['id'] = get_md5(l['message_url'])
+			l['image_url'] = selector.xpath('//div[@class="pic"]/a/@style')[0][21:-1] \
+				if selector.xpath('//div[@class="pic"]/a/@style') else None
+			l['add_time'] = datetime.utcnow()
+			yield l
+
+
+
+
