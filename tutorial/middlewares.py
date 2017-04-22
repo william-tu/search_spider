@@ -8,6 +8,8 @@
 from scrapy import signals
 from scrapy.http import HtmlResponse
 
+import time
+
 class TutorialSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -59,10 +61,16 @@ class JspageMoreMiddleware(object):
 
     def process_request(self,request, spider):
         if spider.name == 'douban':
-            import time
             spider.browser.get(request.url)
             for i in xrange(6):
                 spider.browser.find_element_by_class_name('a_more').click()
+                time.sleep(2)
+            return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source,request=request,encoding='utf-8')
+        elif spider.name == 'guoke':
+            spider.browser.get(request.url)
+            for i in xrange(6):
+                js = "var q=document.documentElement.scrollTop=10000"
+                spider.browser.execute_script(js)
                 time.sleep(2)
             return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source,request=request,encoding='utf-8')
         return None

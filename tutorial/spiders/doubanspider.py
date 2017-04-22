@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import scrapy
 from scrapy import  signals
 from scrapy.xlib.pydispatch import dispatcher
@@ -39,8 +40,13 @@ class DoubanSpider(scrapy.Spider):
 				','.join(selector.xpath('//span/@style')).replace('background-image:url(','').replace(')','').strip()
 			l['message_url'] = selector.xpath('//div[@class="title"]/a/@href')[0]
 			l['id'] = get_md5(l['message_url'])
-			l['image_url'] = selector.xpath('//div[@class="pic"]/a/@style')[0][21:-1] \
-				if selector.xpath('//div[@class="pic"]/a/@style') else None
+			if selector.xpath('//div[@class="pic"]/a/@style'):
+				l['image_url'] = selector.xpath('//div[@class="pic"]/a/@style')[0][21:-1]
+			elif l['content'].startswith('https'):
+				l['image_url'] = selector.xpath('//div[@class="first-pic"]/a/img/@src')[0]
+			else:
+				l['image_url'] = ''
+			l['source_from'] = u'豆瓣'
 			l['add_time'] = datetime.utcnow()
 			yield l
 
