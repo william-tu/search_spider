@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import  signals
-from scrapy.xlib.pydispatch import dispatcher
+
 from ..items import GuokeItem
 from  ..tools.common import get_md5
 
@@ -9,7 +9,7 @@ from datetime import datetime
 from selenium import webdriver
 from lxml import etree
 
-class Guokespider(scrapy.Spider):
+class GuokeSpider(scrapy.Spider):
     name = 'guoke'
     allowed_domains = ['guokr.com']
     start_urls = [
@@ -17,8 +17,14 @@ class Guokespider(scrapy.Spider):
     ]
 
     def __init__(self):
-        self.browser = webdriver.PhantomJS(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
-        dispatcher.connect(self.spider_closed, signals.spider_closed)
+        self.browser = webdriver.PhantomJS(r"G:\phantomjs-2.1.1-windows\bin\phantomjs.exe ")
+
+
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        spider = super(GuokeSpider, cls).from_crawler(crawler, *args, **kwargs)
+        crawler.signals.connect(spider.spider_closed, signals.spider_closed)
+        return spider
 
     def spider_closed(self, spider):
         print 'browser closed'

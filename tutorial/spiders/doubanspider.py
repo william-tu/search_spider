@@ -24,6 +24,12 @@ class DoubanSpider(scrapy.Spider):
 		self.browser = webdriver.Chrome(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
 		dispatcher.connect(self.spider_closed,signals.spider_closed)
 
+	@classmethod
+	def from_crawler(cls, crawler, *args, **kwargs):
+		spider = super(DoubanSpider, cls).from_crawler(crawler, *args, **kwargs)
+		crawler.signals.connect(spider.spider_closed, signals.spider_closed)
+		return spider
+
 
 	def spider_closed(self,spider):
 		print 'browser closed'
