@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import  signals
-
 from ..items import GuokeItem
 from  ..tools.common import get_md5
 

@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import  signals
-from scrapy.xlib.pydispatch import dispatcher
 from ..items import DoubanItem
-
 from ..tools.common import get_md5
-
 
 from selenium import webdriver
 from datetime import datetime
@@ -22,7 +19,7 @@ class DoubanSpider(scrapy.Spider):
 
 	def __init__(self):
 		self.browser = webdriver.Chrome(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
-		dispatcher.connect(self.spider_closed,signals.spider_closed)
+
 
 	@classmethod
 	def from_crawler(cls, crawler, *args, **kwargs):
