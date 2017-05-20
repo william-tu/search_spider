@@ -17,7 +17,7 @@ class Guokespider(scrapy.Spider):
     ]
 
     def __init__(self):
-        self.browser = webdriver.PhantomJS(r"G:\phantomjs-2.1.1-windows\bin\phantomjs.exe ")
+        self.browser = webdriver.PhantomJS(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
         dispatcher.connect(self.spider_closed, signals.spider_closed)
 
     def spider_closed(self, spider):
@@ -38,6 +38,7 @@ class Guokespider(scrapy.Spider):
             l['source_from'] = u'果壳网'
 
             yield  l
+
 
 
 

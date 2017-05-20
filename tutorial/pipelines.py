@@ -37,6 +37,11 @@ class MongoPipeline(object):
         return item
 
 
+class ElasticsearchPipeline(object):
+    def process_item(self, item, spider):
+        item.save_es()
+        return item
+
 class TutorialPipeline(object):
     def process_item(self, item, spider):
         return item
