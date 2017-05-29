@@ -3,6 +3,7 @@ import scrapy
 from scrapy import  signals
 from ..items import GuokeItem
 from  ..tools.common import get_md5
+import tutorial.settings
 
 from datetime import datetime
 from selenium import webdriver
@@ -16,7 +17,7 @@ class GuokeSpider(scrapy.Spider):
     ]
 
     def __init__(self):
-        self.browser = webdriver.PhantomJS(r"G:\phantomjs-2.1.1-windows\bin\phantomjs.exe ")
+        self.browser = webdriver.PhantomJS(tutorial.settings.PHANTOMJS_PATH)
 
 
     @classmethod

@@ -3,6 +3,7 @@ import scrapy
 from scrapy import  signals
 from ..items import DoubanItem
 from ..tools.common import get_md5
+import tutorial.settings
 
 from selenium import webdriver
 from datetime import datetime
@@ -18,7 +19,7 @@ class DoubanSpider(scrapy.Spider):
 	]
 
 	def __init__(self):
-		self.browser = webdriver.Chrome(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
+		self.browser = webdriver.Chrome(tutorial.settings.CHROME_PATH)
 
 
 	@classmethod
