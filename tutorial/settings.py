@@ -91,3 +91,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DATABASE = 'spider'
+CHROME_PATH = r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe "
+PHANTOMJS_PATH = r"G:\phantomjs-2.1.1-windows\bin\phantomjs.exe "

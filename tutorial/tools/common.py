@@ -8,7 +8,7 @@ def get_md5(url):
     m = hashlib.md5()
     m.update(url)
     return m.hexdigest()
-#
+
 # from selenium import webdriver
 # import time
 # browser =webdriver.Chrome(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe ")
@@ -18,3 +18,4 @@ def get_md5(url):
 #     time.sleep(4)
 # print browser.page_source
 # browser.quit()
+
