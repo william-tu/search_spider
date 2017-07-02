@@ -26,7 +26,7 @@ class GuokeSpider(scrapy.Spider):
         return spider
 
     def spider_closed(self, spider):
-        print 'guoke closed'
+        print 'zhihu closed'
 
     def parse(self,response):
         message = response.xpath('//div[@class="wrap"]').extract()
