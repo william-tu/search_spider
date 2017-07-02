@@ -1,6 +1,10 @@
 *.pyc
 
+
 *.log
+
 
 .idea
 
+
+settings.py
