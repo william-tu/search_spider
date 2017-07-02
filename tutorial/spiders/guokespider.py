@@ -27,7 +27,7 @@ class GuokeSpider(scrapy.Spider):
         return spider
 
     def spider_closed(self, spider):
-        print 'browser closed'
+        print 'guoke closed'
         self.browser.quit()
 
     def parse(self,response):

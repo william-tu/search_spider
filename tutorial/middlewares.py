@@ -9,7 +9,7 @@ from scrapy import signals
 from scrapy.http import HtmlResponse
 
 import time
-import urlparse
+
 
 class TutorialSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,

@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from scrapy.exceptions import DropItem
 import pymongo
+from elasticsearch_dsl.connections import connections
 
 
 
@@ -34,11 +35,16 @@ class MongoPipeline(object):
         if self.db[collection_name].find({"id":item["id"]}).count():
             return item
         self.db[collection_name].insert(dict(item))
+        item.save_es()
         return item
 
 
 class ElasticsearchPipeline(object):
+    def open_spider(self, spider):
+        connections.create_connection(hosts=['localhost'])
     def process_item(self, item, spider):
+        if item.search():
+            return item
         item.save_es()
         return item
 
