@@ -89,6 +89,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+COMMANDS_MODULE = 'tutorial.commands'
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DATABASE = 'spider'
 CHROME_PATH = r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe "

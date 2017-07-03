@@ -9,7 +9,7 @@ from datetime import datetime
 from lxml import etree
 import urlparse
 
-class GuokeSpider(scrapy.Spider):
+class ZhihuSpider(scrapy.Spider):
     name = 'zhihu'
     allowed_domains = ['daily.zhihu.com']
     start_urls = [
@@ -21,7 +21,7 @@ class GuokeSpider(scrapy.Spider):
 
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
-        spider = super(GuokeSpider, cls).from_crawler(crawler, *args, **kwargs)
+        spider = super(ZhihuSpider, cls).from_crawler(crawler, *args, **kwargs)
         crawler.signals.connect(spider.spider_closed, signals.spider_closed)
         return spider
 

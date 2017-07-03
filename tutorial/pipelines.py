@@ -5,9 +5,9 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from scrapy.exceptions import DropItem
+
 import pymongo
 from elasticsearch_dsl.connections import connections
-
 
 
 class MongoPipeline(object):

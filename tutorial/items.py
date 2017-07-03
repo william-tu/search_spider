@@ -9,8 +9,9 @@ import scrapy
 
 from es_models import DoubanType,GuokeType,ZhihuType
 
-
 from elasticsearch import Elasticsearch
+
+import logging
 
 
 class DoubanItem(scrapy.Item):
@@ -50,7 +51,7 @@ class DoubanItem(scrapy.Item):
 
             }
         )
-        print res['hits']['total']
+        logging.info("exit the same data ,numbers: %r" % res['hits']['total'])
         if res['hits']['total']:
             return True
         return False
@@ -90,7 +91,7 @@ class GuokeItem(scrapy.Item):
 
             }
         )
-        print res['hits']['total']
+        logging.info("exit the same data ,numbers: %r" % res['hits']['total'])
         if res['hits']['total']:
             return True
         return False
@@ -129,7 +130,7 @@ class ZhihuItem(scrapy.Item):
 
             }
         )
-        print res['hits']['total']
+        logging.info("exit the same data ,numbers: %r" % res['hits']['total'])
         if res['hits']['total']:
             return True
         return False

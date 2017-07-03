@@ -19,7 +19,7 @@ class DoubanSpider(scrapy.Spider):
 	]
 
 	def __init__(self):
-		self.browser = webdriver.Chrome(tutorial.settings.CHROME_PATH)
+		self.browser = webdriver.PhantomJS(tutorial.settings.PHANTOMJS_PATH)
 
 	@classmethod
 	def from_crawler(cls, crawler, *args, **kwargs):
