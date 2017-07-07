@@ -61,17 +61,17 @@ class TutorialSpiderMiddleware(object):
 class JspageMoreMiddleware(object):
 
     def process_request(self,request, spider):
-        if spider.name == 'douban':
-            spider.browser.get(request.url)
-            for i in xrange(2):
-                spider.browser.find_element_by_class_name('a_more').click()
-                time.sleep(2)
-            return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source,request=request,encoding='utf-8')
-        elif spider.name == 'guoke':
-            spider.browser.get(request.url)
-            for i in xrange(2):
-                js = "var q=document.documentElement.scrollTop=10000"
-                spider.browser.execute_script(js)
-                time.sleep(2)
-            return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source,request=request,encoding='utf-8')
-        return None
+         if spider.name == 'douban':
+             spider.browser.get(request.url)
+             for i in xrange(2):
+                 spider.browser.find_element_by_class_name('a_more').click()
+                 time.sleep(2)
+             return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source,request=request,encoding='utf-8')
+         elif spider.name == 'guoke':
+             spider.browser.get(request.url)
+             for i in xrange(2):
+                 js = "var q=document.documentElement.scrollTop=10000"
+                 spider.browser.execute_script(js)
+                 time.sleep(2)
+             return HtmlResponse(url=spider.browser.current_url, body=spider.browser.page_source,request=request,encoding='utf-8')
+         return None

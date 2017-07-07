@@ -35,7 +35,6 @@ class MongoPipeline(object):
         if self.db[collection_name].find({"id":item["id"]}).count():
             return item
         self.db[collection_name].insert(dict(item))
-        item.save_es()
         return item
 
 
