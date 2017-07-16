@@ -4,14 +4,12 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from scrapy.exceptions import DropItem
 
 import pymongo
 from elasticsearch_dsl.connections import connections
 
 
 class MongoPipeline(object):
-
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
@@ -32,7 +30,7 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         collection_name = item.__class__.__name__
-        if self.db[collection_name].find({"id":item["id"]}).count():
+        if self.db[collection_name].find({"id": item["id"]}).count():
             return item
         self.db[collection_name].insert(dict(item))
         return item
@@ -41,11 +39,13 @@ class MongoPipeline(object):
 class ElasticsearchPipeline(object):
     def open_spider(self, spider):
         connections.create_connection(hosts=['localhost'])
+
     def process_item(self, item, spider):
         if item.search():
             return item
         item.save_es()
         return item
+
 
 class TutorialPipeline(object):
     def process_item(self, item, spider):

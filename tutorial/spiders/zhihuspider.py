@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+import urlparse
+from datetime import datetime
+
 import scrapy
+from lxml import etree
 from scrapy import signals
+
 from ..items import ZhihuItem
 from ..tools.common import get_md5
-
-from datetime import datetime
-from lxml import etree
-import urlparse
 
 
 class ZhihuSpider(scrapy.Spider):
@@ -32,7 +33,8 @@ class ZhihuSpider(scrapy.Spider):
         message = response.xpath('//div[@class="wrap"]').extract()
         for m in message:
             selector = etree.HTML(m)
-            yield scrapy.Request(url=urlparse.urljoin(response.url,response.url+selector.xpath('//a/@href')[0]), callback=self.parse_content)
+            yield scrapy.Request(url=urlparse.urljoin(response.url, response.url + selector.xpath('//a/@href')[0]),
+                                 callback=self.parse_content)
 
     def parse_content(self, response):
         print response

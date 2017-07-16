@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-import scrapy
-from scrapy import  signals
-from ..items import GuokeItem
-from  ..tools.common import get_md5
-import tutorial.settings
-
 from datetime import datetime
-from selenium import webdriver
+
+import scrapy
 from lxml import etree
+from scrapy import signals
+from selenium import webdriver
+
+import tutorial.settings
+from ..items import GuokeItem
+from ..tools.common import get_md5
+
 
 class GuokeSpider(scrapy.Spider):
     name = 'guoke'
@@ -19,7 +21,6 @@ class GuokeSpider(scrapy.Spider):
     def __init__(self):
         self.browser = webdriver.PhantomJS(tutorial.settings.PHANTOMJS_PATH)
 
-
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
         spider = super(GuokeSpider, cls).from_crawler(crawler, *args, **kwargs)
@@ -30,7 +31,7 @@ class GuokeSpider(scrapy.Spider):
         print 'guoke closed'
         self.browser.quit()
 
-    def parse(self,response):
+    def parse(self, response):
         message = response.xpath('//div[@id="waterfall"]/div[@class="article"]').extract()
         for m in message:
             l = GuokeItem()
@@ -38,14 +39,10 @@ class GuokeSpider(scrapy.Spider):
             l['title'] = selector.xpath('//h3/a/text()')[0]
             l['message_url'] = selector.xpath('//h3/a/@href')[0]
             l['id'] = get_md5(l['message_url'])
-            l['image_url'] = selector.xpath('//a[@href="'+l['message_url']+'"]/img/@src')[0] if selector.xpath('//a[@href="'+l['message_url']+'"]/img/@src') else ''
+            l['image_url'] = selector.xpath('//a[@href="' + l['message_url'] + '"]/img/@src')[0] if selector.xpath(
+                '//a[@href="' + l['message_url'] + '"]/img/@src') else ''
             l['content'] = selector.xpath('//p[@class="article-summary"]/text()')[0]
             l['add_time'] = datetime.utcnow()
             l['source_from'] = u'果壳网'
 
-            yield  l
-
-
-
-
-
+            yield l

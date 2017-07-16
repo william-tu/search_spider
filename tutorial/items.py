@@ -5,13 +5,12 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
+import logging
+
 import scrapy
-
-from es_models import DoubanType,GuokeType,ZhihuType
-
 from elasticsearch import Elasticsearch
 
-import logging
+from es_models import DoubanType, GuokeType, ZhihuType
 
 
 class DoubanItem(scrapy.Item):
@@ -24,7 +23,6 @@ class DoubanItem(scrapy.Item):
     image_url = scrapy.Field()
     add_time = scrapy.Field()
     source_from = scrapy.Field()
-
 
     def save_es(self):
         Dt = DoubanType()
@@ -96,6 +94,7 @@ class GuokeItem(scrapy.Item):
             return True
         return False
 
+
 class ZhihuItem(scrapy.Item):
     id = scrapy.Field()
     title = scrapy.Field()
@@ -134,6 +133,3 @@ class ZhihuItem(scrapy.Item):
         if res['hits']['total']:
             return True
         return False
-
-
-

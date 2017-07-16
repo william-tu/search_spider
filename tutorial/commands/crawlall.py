@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from scrapy.commands import ScrapyCommand
 from scrapy.utils.project import get_project_settings
 from scrapy.crawler import Crawler
 
-
-import logging
 
 class Command(ScrapyCommand):
     requires_project = True
