@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from scrapy import  signals
+from scrapy import signals
 from ..items import ZhihuItem
-from  ..tools.common import get_md5
-
+from ..tools.common import get_md5
 
 from datetime import datetime
 from lxml import etree
 import urlparse
+
 
 class ZhihuSpider(scrapy.Spider):
     name = 'zhihu'
@@ -28,20 +28,24 @@ class ZhihuSpider(scrapy.Spider):
     def spider_closed(self, spider):
         print 'zhihu closed'
 
-    def parse(self,response):
+    def parse(self, response):
         message = response.xpath('//div[@class="wrap"]').extract()
         for m in message:
-            l = ZhihuItem()
             selector = etree.HTML(m)
-            l['title'] = selector.xpath('//span[@class="title"]/text()')[0]
-            l['message_url'] = urlparse.urljoin(response.url,response.url+selector.xpath('//a/@href')[0])
-            l['id'] = get_md5(l['message_url'])
-            l['image_url'] = selector.xpath('//a/img/@src')[0]
-            l['content'] = ''
-            l['add_time'] = datetime.utcnow()
-            l['source_from'] = u'知乎日报网'
+            yield scrapy.Request(url=urlparse.urljoin(response.url,response.url+selector.xpath('//a/@href')[0]), callback=self.parse_content)
 
-            yield  l
-
-
-
+    def parse_content(self, response):
+        print response
+        l = ZhihuItem()
+        l['title'] = response.xpath('//h1[@class="headline-title"]/text()').extract()[0]
+        l['message_url'] = response.url
+        l['id'] = get_md5(l['message_url'])
+        l['image_url'] = response.xpath('//div[@class="img-wrap"]/img/@src').extract()[0]
+        l['add_time'] = datetime.utcnow()
+        l['source_from'] = u'知乎日报网'
+        content = ''.join(response.xpath('//div[@class="content"]/p/text()').extract())
+        if len(content) > 100:
+            l['content'] = content[:100]
+        else:
+            l['content'] = content
+        yield l
