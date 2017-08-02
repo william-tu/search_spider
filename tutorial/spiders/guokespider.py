@@ -38,7 +38,7 @@ class GuokeSpider(scrapy.Spider):
             selector = etree.HTML(m)
             l['title'] = selector.xpath('//h3/a/text()')[0]
             l['message_url'] = selector.xpath('//h3/a/@href')[0]
-            l['id'] = get_md5(l['message_url'])
+            l['data_id'] = get_md5(l['message_url'])
             l['image_url'] = selector.xpath('//a[@href="' + l['message_url'] + '"]/img/@src')[0] if selector.xpath(
                 '//a[@href="' + l['message_url'] + '"]/img/@src') else ''
             l['content'] = selector.xpath('//p[@class="article-summary"]/text()')[0]

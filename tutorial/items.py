@@ -16,7 +16,7 @@ from es_models import DoubanType, GuokeType, ZhihuType
 class DoubanItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    id = scrapy.Field()
+    data_id = scrapy.Field()
     title = scrapy.Field()
     content = scrapy.Field()
     message_url = scrapy.Field()
@@ -26,7 +26,7 @@ class DoubanItem(scrapy.Item):
 
     def save_es(self):
         Dt = DoubanType()
-        Dt.id = self['id']
+        Dt.id = self['data_id']
         Dt.title = self['title']
         Dt.content = self['content']
         Dt.message_url = self['message_url']
@@ -42,7 +42,7 @@ class DoubanItem(scrapy.Item):
             body={
                 "query": {
                     "match": {
-                        "id": self['id'],
+                        "id": self['data_id'],
 
                     }
                 },
@@ -56,7 +56,7 @@ class DoubanItem(scrapy.Item):
 
 
 class GuokeItem(scrapy.Item):
-    id = scrapy.Field()
+    data_id = scrapy.Field()
     title = scrapy.Field()
     content = scrapy.Field()
     message_url = scrapy.Field()
@@ -66,7 +66,7 @@ class GuokeItem(scrapy.Item):
 
     def save_es(self):
         Gt = GuokeType()
-        Gt.id = self['id']
+        Gt.id = self['data_id']
         Gt.title = self['title']
         Gt.content = self['content']
         Gt.message_url = self['message_url']
@@ -82,7 +82,7 @@ class GuokeItem(scrapy.Item):
             body={
                 "query": {
                     "match": {
-                        "id": self['id'],
+                        "id": self['data_id'],
 
                     }
                 },
@@ -96,7 +96,7 @@ class GuokeItem(scrapy.Item):
 
 
 class ZhihuItem(scrapy.Item):
-    id = scrapy.Field()
+    data_id = scrapy.Field()
     title = scrapy.Field()
     content = scrapy.Field()
     message_url = scrapy.Field()
@@ -106,7 +106,7 @@ class ZhihuItem(scrapy.Item):
 
     def save_es(self):
         Zt = ZhihuType()
-        Zt.id = self['id']
+        Zt.id = self['data_id']
         Zt.title = self['title']
         Zt.content = self['content']
         Zt.message_url = self['message_url']
@@ -122,7 +122,7 @@ class ZhihuItem(scrapy.Item):
             body={
                 "query": {
                     "match": {
-                        "id": self['id'],
+                        "id": self['data_id'],
 
                     }
                 },

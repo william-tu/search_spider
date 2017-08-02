@@ -41,7 +41,7 @@ class DoubanSpider(scrapy.Spider):
             l['content'] = selector.xpath('//p/a/text()')[0].strip() if selector.xpath('//p/a/text()') else \
                 ','.join(selector.xpath('//span/@style')).replace('background-image:url(', '').replace(')', '').strip()
             l['message_url'] = selector.xpath('//div[@class="title"]/a/@href')[0]
-            l['id'] = get_md5(l['message_url'])
+            l['data_id'] = get_md5(l['message_url'])
             if selector.xpath('//div[@class="pic"]/a/@style'):
                 l['image_url'] = selector.xpath('//div[@class="pic"]/a/@style')[0][21:-1]
             elif l['content'].startswith('https'):

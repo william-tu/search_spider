@@ -30,7 +30,7 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         collection_name = item.__class__.__name__
-        if self.db[collection_name].find({"id": item["id"]}).count():
+        if self.db[collection_name].find({"data_id": item["data_id"]}).count():
             return item
         self.db[collection_name].insert(dict(item))
         return item

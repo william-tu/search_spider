@@ -41,7 +41,7 @@ class ZhihuSpider(scrapy.Spider):
         l = ZhihuItem()
         l['title'] = response.xpath('//h1[@class="headline-title"]/text()').extract()[0]
         l['message_url'] = response.url
-        l['id'] = get_md5(l['message_url'])
+        l['data_id'] = get_md5(l['message_url'])
         l['image_url'] = response.xpath('//div[@class="img-wrap"]/img/@src').extract()[0]
         l['add_time'] = datetime.utcnow()
         l['source_from'] = u'知乎日报网'
