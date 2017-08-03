@@ -8,5 +8,5 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # execute(['scrapy','crawlall'])
 # execute(['scrapy','crawl','guoke'])
-execute(['scrapy','crawl','zhihu'])
+# execute(['scrapy','crawl','douban'])
 

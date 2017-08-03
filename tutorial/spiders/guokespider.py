@@ -15,7 +15,11 @@ class GuokeSpider(scrapy.Spider):
     name = 'guoke'
     allowed_domains = ['guokr.com']
     start_urls = [
-        'http://www.guokr.com/scientific/'
+        'http://www.guokr.com/scientific/','http://www.guokr.com/scientific/channel/hot/',
+        'http://www.guokr.com/scientific/channel/frontier/','http://www.guokr.com/scientific/channel/review/',
+        'http://www.guokr.com/scientific/channel/interview/','http://www.guokr.com/scientific/channel/visual/',
+        'http://www.guokr.com/scientific/channel/brief/','http://www.guokr.com/scientific/channel/fact/',
+        'http://www.guokr.com/scientific/channel/techb/','http://www.guokr.com/scientific/subject/'
     ]
 
     def __init__(self):
