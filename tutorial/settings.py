@@ -91,8 +91,21 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+
+# Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+
+# REDIS_START_URLS_AS_SET = True
 COMMANDS_MODULE = 'tutorial.commands'
+
+# for docker db config
+# REDIS_PARAMS = {'host':'redis','decode_responses':False}
+# MONGO_URL = 'mongo:27017'
+
+# for not docker db config
 MONGO_URI = 'mongodb://localhost:27017'
+
 MONGO_DATABASE = 'spider'
 CHROME_PATH = r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe "
 PHANTOMJS_PATH = r"F:\phantomjs-2.1.1-windows\bin\phantomjs.exe "
