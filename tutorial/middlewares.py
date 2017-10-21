@@ -6,6 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 import time
+import random
 
 from scrapy import signals
 from scrapy.http import HtmlResponse
@@ -57,6 +58,22 @@ class TutorialSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class RandomUserAgentMiddlware(object):
+    # 随机更换user-agent
+    def __init__(self, crawler):
+        self.user_agent = crawler.settings.get("USER_AGENT_LIST")
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler)
+
+    def process_request(self, request, spider):
+        # 随机选择user-agent
+        ua = random.choice(self.user_agent)
+        if ua:
+            request.headers.setdefault('User-Agent', ua)
 
 
 class JspageMoreMiddleware(object):

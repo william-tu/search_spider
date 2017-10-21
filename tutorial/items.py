@@ -133,3 +133,13 @@ class ZhihuItem(scrapy.Item):
         if res['hits']['total']:
             return True
         return False
+
+
+class GuinessItem(scrapy.Item):
+    data_id = scrapy.Field()
+    title = scrapy.Field()
+    content = scrapy.Field()
+    message_url = scrapy.Field()
+    add_time = scrapy.Field()
+    image_url = scrapy.Field()
+    source_from = scrapy.Field()
