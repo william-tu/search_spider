@@ -6,14 +6,17 @@
 - python2.7
 - scrapy
 - mongodb
+- redis
 - elasticsearch
 
 ### 2.功能
 - [x] 果壳网爬虫
 - [x] 豆瓣网爬虫
-- [x] 知乎爬虫
-- [ ] 网易云音乐爬虫
-- [ ] qq音乐爬虫
+- [x] 知乎日报爬虫
+- [x] 吉尼斯官网爬虫 （采用docker和scrapy-redis实现了分布式）
+
+
+
 
 # search_spider
 
